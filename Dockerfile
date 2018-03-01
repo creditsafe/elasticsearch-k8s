@@ -9,4 +9,4 @@ COPY --chown=1000:0 es-config-copy.sh /usr/local/bin/es-config-copy.sh
 RUN chgrp 0 /usr/local/bin/es-config-copy.sh && \
     chmod 0775 /usr/local/bin/es-config-copy.sh
 
-CMD["/usr/local/bin/es-config-copy.sh"]
+CMD ["/usr/local/bin/es-config-copy.sh"]
