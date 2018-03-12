@@ -2,9 +2,14 @@ FROM docker.elastic.co/elasticsearch/elasticsearch:5.4.2
 
 RUN elasticsearch-plugin install --batch repository-s3
 
-COPY --chown=1000:0 es-config-copy.sh /usr/local/bin/es-config-copy.sh
+COPY es-docker bin/es-docker
 
-RUN chgrp 0 /usr/local/bin/es-config-copy.sh && \
-    chmod 0775 /usr/local/bin/es-config-copy.sh
+USER root
+RUN chown elasticsearch:elasticsearch \
+    bin/es-docker && \
+    chmod 0750 bin/es-docker
 
-CMD ["/usr/local/bin/es-config-copy.sh"]
+USER elasticsearch
+CMD ["/bin/bash", "bin/es-docker"]
+
+EXPOSE 9200 9300
